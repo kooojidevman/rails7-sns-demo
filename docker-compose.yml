@@ -1,0 +1,25 @@
+version: '3'
+services:
+  web:
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/app
+    ports:
+      - '3001:3000'
+    tty: true
+    stdin_open: true
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    # Mysql8系はデフォルトプラグインが'caching_sha2_password'になり、これが原因でエラーを引き起こすため事前に指定しておく。
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_DATABASE: rails7_mysql8_template_development
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./tmp/db:/var/lib/mysql
