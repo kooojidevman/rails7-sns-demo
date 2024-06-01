@@ -240,7 +240,15 @@ end
 
 ```
 
+- deviseのviewファイル作成
+```
+bundle exec rails g devise:views
+```
 
+- viewは主に以下を修正
+  - app/views/devise/registrations/new.html.erb (ユーザー登録ページ)
+  - app/views/devise/sessions/new.html.erb (ログインページ)
+  - app/views/devise/shared/_error_messages.html.erb (エラーメッセージのパーシャル)
 
 ## Seedデータ作成
 
