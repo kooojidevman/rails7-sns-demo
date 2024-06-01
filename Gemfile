@@ -54,10 +54,14 @@ gem 'tailwindcss-rails', '~> 2.6'
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
+
   gem 'rubocop', require: false # 追加
   gem 'rubocop-performance', require: false # 追加
   gem 'rubocop-rails', require: false # 追加
   gem 'rubocop-rspec' # 追加
+
+  gem 'factory_bot_rails' # 追加
+  gem 'rspec-rails' # 追加
 end
 
 group :development do
@@ -69,4 +73,6 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  gem 'spring-commands-rspec' # 追記
 end

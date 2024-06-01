@@ -105,9 +105,76 @@ config.generators do |g| # ここから追記
       g.assets false          # CSS, JavaScriptファイルを自動生成しない
       g.helper     false      # helperファイルを自動生成しない
 end
+```
 
+## RSpecの導入
+
+* Gemfileのdevelopment, testに以下追加
+```
+gem 'rspec-rails'
+gem 'factory_bot_rails'
+```
+
+* コマンド実行
 
 ```
+// インストール
+dc exec web bundle
+dc exec web bundle exec rails g rspec:install
+
+// 動作確認
+dc exec web bundle exec rspec
+
+// (やる必要あれば) /test 削除
+rm -r test/
+```
+
+- `spec/rails_helper.rb`に下記追加
+```ruby
+RSpec.configure do |config|
+  config.include FactoryBot::Syntax::Methods # 最下段に追記
+end
+```
+
+- `config/application.rb`に追記
+```ruby
+config.generators do |g|
+  g.assets false
+  g.helper     false
+  g.test_framework :rspec, # ここから5行を追記
+    fixtures: false, # テストDBにレコードを作るfixtureの作成をスキップ(FactoryBotを使用するため)
+    view_specs: false, # ビューファイル用のスペックを作成しない
+    helper_specs: false, # ヘルパーファイル用のスペックを作成しない
+    routing_specs: false # routes.rb用のスペックファイル作成しない
+end
+```
+
+- .rspec ファイルの最下段に、以下の 1 行を追加
+```
+--format documentation # 出力結果をドキュメント風に見やすくする
+```
+
+- テスト起動の高速化のためにGemfileのdevelopmentに以下追加しinstall
+```
+group :development do
+  ...
+  gem 'spring-commands-rspec' # 追記
+end
+```
+
+- コマンド実行
+```
+dc exec web bundle exec spring binstub rspec
+
+// 確認
+ls bin/
+```
+
+- `config/environments/test.rb`に修正
+```ruby
+config.cache_classes = false # trueからfalseに変更
+```
+
 
 
 ## Seedデータ作成
@@ -186,19 +253,7 @@ rails g controller home index
 rails g controller users new create me  // meはマイページ表示のためのアクション
 ```
 
-## RSpecの導入
 
-* Gemfileに以下追加
-
-```
-gem 'rspec-rails', '~> 3.8'
-```
-
-* コマンド実行
-
-```
-rails g rspec:install
-```
 
 * ジェネレータの使い方
 
