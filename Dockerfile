@@ -1,6 +1,5 @@
 FROM ruby:3.1
 
-RUN mkdir /app
 WORKDIR /app
 COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
@@ -8,8 +7,7 @@ COPY Gemfile.lock /app/Gemfile.lock
 # Avoid Bundler Error
 RUN gem update --system && \
     bundle update --bundler && \
-    bundle install && \
-    bundle exec rails tailwindcss:install
+    bundle install
 
 COPY . /app
 
