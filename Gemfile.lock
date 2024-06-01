@@ -157,6 +157,8 @@ GEM
       sprockets (>= 3.0.0)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
+    tailwindcss-rails (2.6.0)
+      railties (>= 7.0.0)
     thor (1.2.1)
     timeout (0.3.0)
     turbo-rails (1.4.0)
@@ -188,6 +190,7 @@ DEPENDENCIES
   rails (~> 7.0.4)
   sprockets-rails
   stimulus-rails
+  tailwindcss-rails (~> 2.6)
   turbo-rails
   tzinfo-data
   web-console
@@ -196,4 +199,4 @@ RUBY VERSION
    ruby 3.1.4p223
 
 BUNDLED WITH
-   2.1.4
+   2.4.13

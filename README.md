@@ -46,7 +46,7 @@ http://localhost:3001
 
 ```
 // コンテナにアタッチし、その後binding.pryを仕込んで処理を止める
-docker attach attach {リポジトリ名}_web_1
+docker attach {リポジトリ名}_web_1
 
 // 以下の手順でコンテナアタッチを抜ける
 continue入力 →フォアグランドに戻る →「control」+ p → q
@@ -63,6 +63,22 @@ config.time_zone = 'Tokyo'
 Time::DATE_FORMATS[:datetime_jp] = '%Y年%m月%d日 %H時%M分'
 
 ```
+
+## Tailwind CSSの導入
+```
+// Gemfileに以下追加
+gem 'tailwindcss-rails', '~> 2.6'
+
+// Dockerログイン
+dc exec web bash  
+
+// コマンド入力
+bundle exec rails tailwindcss:install
+
+// Dockerfile反映
+```
+
+
 
 ## Seedデータ作成
 

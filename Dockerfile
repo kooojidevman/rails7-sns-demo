@@ -6,10 +6,11 @@ COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
 
 # Avoid Bundler Error
-RUN gem update --system
-RUN bundle update --bundler
+RUN gem update --system && \
+    bundle update --bundler && \
+    bundle install && \
+    bundle exec rails tailwindcss:install
 
-RUN bundle install
 COPY . /app
 
 # Add a script to be executed every time the container starts.
