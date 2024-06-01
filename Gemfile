@@ -76,3 +76,8 @@ group :development do
 
   gem 'spring-commands-rspec' # 追記
 end
+
+group :test do
+  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem 'capybara'
+end
