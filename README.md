@@ -343,8 +343,8 @@ gem 'annotate'
 
 ```
 // 既存のモデルにスキーマ情報(アノテーション)書き出し
-docker-compose exec web bundle exec annotate --models
+bundle exec annotate --models
 
 // マイグレーション時に自動でモデルにスキーマ情報を書き込む設定
-docker-compose exec web rails g annotate:install
+rails g annotate:install
 ```
