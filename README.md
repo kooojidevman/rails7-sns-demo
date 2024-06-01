@@ -96,6 +96,19 @@ dc exec web bundle exec rubocop
 
 ```
 
+### Rails自動生成ファイルの設定
+
+```ruby
+
+# 以下追加
+config.generators do |g| # ここから追記
+      g.assets false          # CSS, JavaScriptファイルを自動生成しない
+      g.helper     false      # helperファイルを自動生成しない
+end
+
+
+```
+
 
 ## Seedデータ作成
 
