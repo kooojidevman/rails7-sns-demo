@@ -1,7 +1,7 @@
 ## 概要
 * Rails7(MVC) × MySQL8の環境テンプレート
 
-## 立ち上げ手順
+## プロジェクト作成手順
 
 ```
 // ファイル作成→編集
@@ -10,6 +10,21 @@ $ touch Dockerfile Gemfile entrypoint.sh docker-compose.yml
 // rails new(オプション忘れずに)
 $ docker-compose run web rails new . --force --no-deps --skip-test --database=mysql 
 
+```
+
+## bare cloneからの立ち上げ手順
+```
+// リポジトリのベアクローンを作成
+git clone --bare git@kooojidevman:kooojidevman/rails7-mysql8-template.git
+
+// 新しいリポジトリをミラーpush
+cd rails7-template.git
+git push --mirror git@kooojidevman:kooojidevman/{リポジトリ名}.git
+
+
+// 新しいリポジトリをclone
+git clone git@kooojidevman:kooojidevman/{リポジトリ名}.git
+
 // database.ymlの設定(developmentとtest)
 database: データベース名
 host: db 
@@ -17,7 +32,7 @@ root: root
 password: パスワード
 
 // DB作成
-docker-compose run web rails db:create
+docker-compose run --rm web rails db:create
 
 // イメージの起動
 docker-compose up
@@ -26,18 +41,12 @@ docker-compose up
 http://localhost:3001
 ```
 
-## テンプレートを流用する場合の手順
-
-```
-TODO
-```
-
 
 ## pry-byebug Dockerでの操作方法
 
 ```
 // コンテナにアタッチし、その後binding.pryを仕込んで処理を止める
-docker atacch attach rails-learning-udemy_web_1
+docker attach attach {リポジトリ名}_web_1
 
 // 以下の手順でコンテナアタッチを抜ける
 continue入力 →フォアグランドに戻る →「control」+ p → q
