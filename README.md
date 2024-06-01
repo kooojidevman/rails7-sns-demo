@@ -78,6 +78,23 @@ bundle exec rails tailwindcss:install
 // Dockerfile反映
 ```
 
+### rubocop設定
+```
+
+// Gemfileのdevelopmentに以下追加
+gem 'rubocop', require: false # 追加
+gem 'rubocop-performance', require: false # 追加
+gem 'rubocop-rails', require: false # 追加
+gem 'rubocop-rspec' # 追加
+
+// bundle install
+
+// .rubocop.ymlを作成し調べながらお好みの設定をしていく
+
+// rubocopの動作確認
+dc exec web bundle exec rubocop 
+
+```
 
 
 ## Seedデータ作成
