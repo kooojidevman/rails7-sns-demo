@@ -256,8 +256,8 @@ bundle exec rails g devise:views
 
 * db/seeds.rb作成
 
-```ruby:db/seeds.rb
-if Rails.env == 'developent'
+```ruby
+if Rails.env == 'development'
   (1..50).each do |i|
     Board.create(name: "ユーザー#{i}", title: "タイトル#{i}", body: "本文#{i}")
   end
@@ -347,18 +347,4 @@ docker-compose exec web bundle exec annotate --models
 
 // マイグレーション時に自動でモデルにスキーマ情報を書き込む設定
 docker-compose exec web rails g annotate:install
-```
-
-
-
-
-
-* ジェネレータの使い方
-
-```
-// モデル
-rails g rspec:model User
-
-// コントローラ
-rails g rspec:controller User
 ```
