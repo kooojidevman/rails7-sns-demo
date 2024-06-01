@@ -18,11 +18,11 @@ describe User do
   let(:name) { 'テスト太郎' }
   let(:email) { 'test@example.com' }
   let(:password) { '12345678' }
-  let(:user) { User.new(name: name, email: email, password: password, password_confirmation: password) }
+  let(:user) { User.new(name:, email:, password:, password_confirmation: password) }
 
   describe '.first' do
     before do
-      create(:user, name: name, email: email)
+      create(:user, name:, email:)
     end
 
     subject { described_class.first }
@@ -51,7 +51,7 @@ describe User do
             user.valid?
 
             expect(user.valid?).to be(false)
-            expect(user.errors[:name]).to include('is too long (maximum is 20 characters)')
+            expect(user.errors[:name]).to include('は20文字以内で入力してください')
           end
         end
       end
@@ -62,7 +62,7 @@ describe User do
 
           it 'User オブジェクトは無効である' do
             expect(user.valid?).to be(false)
-            expect(user.errors[:name]).to include("can't be blank")
+            expect(user.errors[:name]).to include("を入力してください")
           end
         end
       end
