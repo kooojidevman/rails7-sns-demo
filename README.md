@@ -187,6 +187,59 @@ ls bin/
 config.cache_classes = false # trueからfalseに変更
 ```
 
+## 認証(ログイン)関連の設定
+
+- DeviseインストールしUserテーブル作成
+
+```
+// Gemfileに追加しインストール
+gem "bcrypt", "~> 3.1.7" <- コメント外す
+gem 'devise'
+
+// devise の初期設定に必要なファイル生成
+bundle exec rails g devise:install
+
+
+// deviseのUserモデル作成
+bundle exec rails g devise User
+
+// nameカラム追加(その他カラムも任意で追加して良い)
+bundle exec rails g migration AddNameToUser name:string
+
+// マイグレーション実行
+bundle exec rails db:migrate && bundle exec rails db:migrate RAILS_ENV=test
+```
+
+
+- Gemfileのbcryptをインストール後、以下実行しユーザーモデル作成
+
+```
+rails g model user name:string password_digest:string
+```
+
+- マイグレーション後、コントローラ(sessions, home, users)作成
+
+```
+rails g controller sessions create destroy --skip-template-engine
+rails g controller home index
+rails g controller users new create me  // meはマイページ表示のためのアクション
+```
+
+- Deviseモデルにおけるストロングパラメータを`app/controllers/application_controller.rb`にて設定する
+
+```ruby
+class ApplicationController < ActionController::Base
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
+  end
+end
+
+```
+
 
 
 ## Seedデータ作成
@@ -249,21 +302,7 @@ docker-compose exec web bundle exec annotate --models
 docker-compose exec web rails g annotate:install
 ```
 
-## 認証(ログイン)関連の設定
 
-* Gemfileのbcryptをインストール後、以下実行しユーザーモデル作成
-
-```
-rails g model user name:string password_digest:string
-```
-
-* マイグレーション後、コントローラ(sessions, home, users)作成
-
-```
-rails g controller sessions create destroy --skip-template-engine
-rails g controller home index
-rails g controller users new create me  // meはマイページ表示のためのアクション
-```
 
 
 
