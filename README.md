@@ -250,6 +250,8 @@ bundle exec rails g devise:views
   - app/views/devise/sessions/new.html.erb (ログインページ)
   - app/views/devise/shared/_error_messages.html.erb (エラーメッセージのパーシャル)
 
+
+
 ## Seedデータ作成
 
 * db/seeds.rb作成
@@ -266,7 +268,7 @@ end
 
 ## 日本語化設定
 
-* config/application.rbに以下追加
+- config/application.rbに以下追加
 
 ```ruby
 config.i18n.default_locale = :ja
@@ -280,16 +282,53 @@ gem 'rails-i18n'
 
 * ja.ymlを作り日本語を定義する
 
-```
+```yaml
 // 例
 
 ja:
   activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              taken: "は既に使用されています。"
+              blank: "が入力されていません。"
+              invalid: "は有効でありません。"
+            nickname:
+              blank: "が入力されていません。"
+              too_long: "は%{count}文字以下に設定して下さい。"
+            password:
+              blank: "が入力されていません。"
+              too_short: "は%{count}文字以上に設定して下さい。"
+              too_long: "は%{count}文字以下に設定して下さい。"
+              invalid: "は有効でありません。"
+            password_confirmation:
+              confirmation: "が一致していません。"
     attributes:
-       board:
-          name: 名前
-          title: タイトル
-          body: 本文
+      user:
+        nickname: "ニックネーム"
+        email: "メールアドレス"
+        password: "パスワード"
+        password_confirmation: "確認用パスワード"
+    models:
+      user: "ユーザー"
+  errors:
+    messages:
+      not_saved: "エラーが発生したため%{resource}は保存されませんでした。"
+
+  devise:
+    failure:
+      invalid: "%{authentication_keys}またはパスワードが違います。"
+    registrations:
+      user:
+        signed_up: ユーザー登録に成功しました。
+    sessions:
+      new:
+        sign_in: ログイン
+      signed_in: ログインしました。
+      user:
+        signed_out: ログアウトしました。
 ```
 
 ## テーブルの構造がわかるようにモデルに記述したい
