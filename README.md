@@ -78,6 +78,11 @@ bundle exec rails tailwindcss:install
 // Dockerfile反映
 ```
 
+- tailwindをビルドする際のコマンド
+```
+rails tailwindcss:build
+```
+
 ### rubocop設定
 ```
 
