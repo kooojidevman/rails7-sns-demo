@@ -19,7 +19,7 @@ default: &default
 
 development:
   <<: *default
-  database: rails7_mysql8_template_development
+  database: rails7_sns_demo_local
   host: db
   username: root
   password: root
@@ -29,7 +29,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: rails7_mysql8_template_test
+  database: rails7_sns_demo_test
   host: db
   username: root
   password: root
@@ -56,6 +56,6 @@ test:
 #
 production:
   <<: *default
-  database: app_production
+  database: rails7_sns_demo_production
   username: app
   password: <%= ENV["APP_DATABASE_PASSWORD"] %>
