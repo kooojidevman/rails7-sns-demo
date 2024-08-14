@@ -24,7 +24,4 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :tweets
-
-  validates :name, length: { maximum: 20 }
-  validates :name, presence: true
 end
